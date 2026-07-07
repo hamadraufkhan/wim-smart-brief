@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FadeIn } from "@/components/motion";
+import { WimLiveScene, SystemGallery, FeatureGrid } from "@/components/wim-scene";
 import { PageShell, SectionHeader, DataRow } from "@/components/site-chrome";
 
 export const Route = createFileRoute("/")({
@@ -11,8 +12,10 @@ function Index() {
     <PageShell>
       <Hero />
       <TickerBar />
+      <LiveSystem />
       <Principles />
       <Pipeline />
+      <Features />
       <Applications />
       <CTA />
     </PageShell>
@@ -102,6 +105,45 @@ function TickerBar() {
         ))}
       </div>
     </div>
+  );
+}
+
+function LiveSystem() {
+  return (
+    <section className="mx-auto max-w-[1400px] px-6 py-24">
+      <SectionHeader
+        eyebrow="§ Live · Sense → transmit"
+        title={
+          <>
+            Every truck that passes <em className="italic hivis-underline">writes a record</em>.
+          </>
+        }
+        intro="Vehicles cross the in-road sensors at highway speed; each axle-pass is measured, reconstructed into a weight, and streamed to the control room in real time."
+      />
+      <div className="mt-12">
+        <WimLiveScene />
+      </div>
+      <SystemGallery />
+    </section>
+  );
+}
+
+function Features() {
+  return (
+    <section className="rule-top rule-bottom bg-concrete/40">
+      <div className="mx-auto max-w-[1400px] px-6 py-24">
+        <SectionHeader
+          eyebrow="§ Capabilities"
+          title={
+            <>
+              From basic counting to <em className="italic hivis-underline">enforcement-grade</em> analytics.
+            </>
+          }
+          intro="One instrument stack, scaled across three capability tiers — deploy what the corridor needs today and switch on the rest later."
+        />
+        <FeatureGrid />
+      </div>
+    </section>
   );
 }
 

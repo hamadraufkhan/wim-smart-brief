@@ -58,8 +58,8 @@
   --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-rule: var(--rule);
-  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-display: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -158,7 +158,7 @@
 
   h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 700;
     letter-spacing: -0.02em;
   }
 }
@@ -167,7 +167,7 @@
 
 @utility font-display {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 
@@ -290,5 +290,83 @@
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+/* -------- WIM live scene -------- */
+
+@keyframes wim-drive {
+  from {
+    transform: translate3d(-30%, 0, 0);
+  }
+  to {
+    transform: translate3d(130%, 0, 0);
+  }
+}
+
+@keyframes wim-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes wim-sensor-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    box-shadow: 0 0 6px 0 var(--color-hivis);
+  }
+  10% {
+    opacity: 1;
+    box-shadow: 0 0 22px 5px var(--color-hivis);
+  }
+  45% {
+    opacity: 0.45;
+    box-shadow: 0 0 6px 0 var(--color-hivis);
+  }
+}
+
+@keyframes wim-packet-up {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-50%, calc(-1 * var(--wim-uplink, 120px)), 0);
+    opacity: 0;
+  }
+}
+
+@keyframes wim-flow {
+  to {
+    background-position: 0 -14px;
+  }
+}
+
+@keyframes wim-blip {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wim-anim [style*="animation"],
+  .wim-anim .wim-flow {
+    animation: none !important;
   }
 }
