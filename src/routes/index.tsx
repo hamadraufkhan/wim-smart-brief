@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FadeIn } from "@/components/motion";
+import { HeroBackground } from "@/components/hero-background";
 import { WimLiveScene, SystemGallery, FeatureGrid } from "@/components/wim-scene";
 import { EnforcementSection } from "@/components/enforcement";
 import { ImpactSection } from "@/components/impact";
@@ -36,9 +37,10 @@ function Index() {
 function Hero() {
   return (
     <section id="top" className="deck-anchor relative overflow-hidden">
-      <div className="grid-lines absolute inset-0 opacity-40" aria-hidden />
-      <div className="scanlines absolute inset-0 opacity-30" aria-hidden />
-      <div className="relative mx-auto grid max-w-[1400px] gap-12 px-6 pb-24 pt-20 md:grid-cols-12 md:pt-28">
+      <HeroBackground />
+      <div className="grid-lines absolute inset-0 z-[1] opacity-40" aria-hidden />
+      <div className="scanlines absolute inset-0 z-[1] opacity-30" aria-hidden />
+      <div className="relative z-10 mx-auto grid max-w-[1400px] gap-12 px-6 pb-24 pt-20 md:grid-cols-12 md:pt-28">
         <div className="md:col-span-8">
           <h1 className="font-display text-5xl leading-[0.98] tracking-tight text-foreground motion-fade-up motion-stagger-2 md:text-[7rem]">
             Weighing <span className="italic hivis-underline">every axle</span>

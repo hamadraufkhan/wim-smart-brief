@@ -378,6 +378,46 @@
   }
 }
 
+/* -------- Hero background -------- */
+
+@keyframes hero-wave-drift {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes hero-drive-slow {
+  from {
+    transform: translate3d(-25%, 0, 0);
+  }
+  to {
+    transform: translate3d(125%, 0, 0);
+  }
+}
+
+@keyframes hero-packet-rise {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(40px, -180px, 0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg [style*="animation"] {
+    animation: none !important;
+  }
+}
+
 /* -------- Single-page deck -------- */
 
 @media (prefers-reduced-motion: no-preference) {
