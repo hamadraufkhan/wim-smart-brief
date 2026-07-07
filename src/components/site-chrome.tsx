@@ -1,5 +1,7 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+
+import { PageEnter } from "@/components/motion";
 
 const NAV = [
   { to: "/", label: "Overview" },
@@ -22,7 +24,7 @@ export function SiteHeader() {
             <Link
               key={n.to}
               to={n.to}
-              className="rounded-none px-3 py-2 font-mono-tight text-xs uppercase tracking-widest text-foreground/70 transition hover:text-foreground"
+              className="rounded-none px-3 py-2 font-mono-tight text-xs uppercase tracking-widest text-foreground/70 transition-[color,transform] duration-200 motion-safe:hover:-translate-y-px hover:text-foreground"
               activeProps={{ className: "text-hivis" }}
               activeOptions={{ exact: n.to === "/" }}
             >
@@ -32,10 +34,12 @@ export function SiteHeader() {
         </nav>
         <Link
           to="/contact"
-          className="hidden items-center gap-2 border border-hivis px-4 py-2 font-mono-tight text-xs uppercase tracking-widest text-hivis transition hover:bg-hivis hover:text-hivis-foreground md:inline-flex"
+          className="group hidden items-center gap-2 border border-hivis px-4 py-2 font-mono-tight text-xs uppercase tracking-widest text-hivis transition-[background-color,color,transform] duration-200 motion-safe:hover:-translate-y-px hover:bg-hivis hover:text-hivis-foreground md:inline-flex"
         >
           Request Deployment Brief
-          <span aria-hidden>→</span>
+          <span aria-hidden className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5">
+            →
+          </span>
         </Link>
       </div>
       <div className="diag-stripes h-1 w-full opacity-80" />
@@ -109,10 +113,14 @@ function FooterCol({
 }
 
 export function PageShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
-      <main>{children}</main>
+      <main>
+        <PageEnter routeKey={pathname}>{children}</PageEnter>
+      </main>
       <SiteFooter />
     </div>
   );
@@ -152,11 +160,13 @@ export function DataRow({
   v: ReactNode;
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 rule-bottom py-3">
+    <div className="group flex items-baseline justify-between gap-4 rule-bottom py-3">
       <span className="font-mono-tight text-[11px] uppercase tracking-widest text-muted-foreground">
         {k}
       </span>
-      <span className="font-mono-tight text-sm text-foreground">{v}</span>
+      <span className="font-mono-tight text-sm text-foreground transition-colors duration-200 group-hover:text-hivis">
+        {v}
+      </span>
     </div>
   );
 }

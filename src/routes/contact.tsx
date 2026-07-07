@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/site-chrome";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -23,6 +23,18 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+    window.setTimeout(() => {
+      setSubmitting(false);
+      setSent(true);
+    }, 800);
+  };
+
   return (
     <PageShell>
       <section className="mx-auto max-w-[1400px] px-6 pb-20 pt-20">
@@ -55,16 +67,10 @@ function ContactPage() {
             </ul>
           </div>
 
-          <form
-            className="md:col-span-7"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
-          >
+          <form className="md:col-span-7" onSubmit={handleSubmit}>
             <div className="border border-rule bg-background p-8">
               {sent ? (
-                <div className="py-16 text-center">
+                <div className="motion-fade-up py-16 text-center">
                   <p className="label-eyebrow">Received</p>
                   <p className="font-display mt-4 text-4xl text-foreground">
                     Thank you. <span className="hivis-underline">We'll reply within 2 working days.</span>
@@ -91,9 +97,21 @@ function ContactPage() {
                   </div>
                   <button
                     type="submit"
-                    className="mt-8 inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition hover:brightness-110"
+                    disabled={submitting}
+                    className="mt-8 inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition-[transform,filter,opacity] duration-200 motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60"
                   >
-                    Send brief <span aria-hidden>→</span>
+                    {submitting ? (
+                      <>
+                        Sending
+                        <span className="motion-safe:animate-pulse" aria-hidden>
+                          …
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        Send brief <span aria-hidden>→</span>
+                      </>
+                    )}
                   </button>
                 </>
               )}

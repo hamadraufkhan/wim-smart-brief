@@ -223,3 +223,72 @@
     color-mix(in oklab, var(--color-paper) 3%, transparent) 3px 4px
   );
 }
+
+/* -------- Motion -------- */
+
+@theme inline {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 350ms;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes scroll {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@utility motion-fade-up {
+  animation: fade-up var(--duration-normal) var(--ease-out-expo) both;
+}
+
+@utility motion-page-enter {
+  animation: page-enter var(--duration-normal) var(--ease-out-expo) both;
+}
+
+@utility motion-stagger-1 {
+  animation-delay: 60ms;
+}
+
+@utility motion-stagger-2 {
+  animation-delay: 120ms;
+}
+
+@utility motion-stagger-3 {
+  animation-delay: 180ms;
+}
+
+@utility motion-stagger-4 {
+  animation-delay: 240ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-fade-up,
+  .motion-page-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

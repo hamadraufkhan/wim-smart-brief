@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { FadeIn } from "@/components/motion";
 import { PageShell, SectionHeader, DataRow } from "@/components/site-chrome";
 
 export const Route = createFileRoute("/")({
@@ -25,34 +26,42 @@ function Hero() {
       <div className="scanlines absolute inset-0 opacity-30" aria-hidden />
       <div className="relative mx-auto grid max-w-[1400px] gap-12 px-6 pb-24 pt-20 md:grid-cols-12 md:pt-28">
         <div className="md:col-span-8">
-          <p className="label-eyebrow">Bulletin · Vol. 12 / Highway Instrumentation</p>
-          <h1 className="font-display mt-6 text-5xl leading-[0.98] tracking-tight text-foreground md:text-[7rem]">
+          <p className="label-eyebrow motion-fade-up motion-stagger-1">
+            Bulletin · Vol. 12 / Highway Instrumentation
+          </p>
+          <h1 className="font-display mt-6 text-5xl leading-[0.98] tracking-tight text-foreground motion-fade-up motion-stagger-2 md:text-[7rem]">
             Weighing <span className="italic hivis-underline">every axle</span>
             <br />
             at 120 km/h.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground motion-fade-up motion-stagger-3 md:text-xl">
             High-Speed Weigh-In-Motion systems infer static axle load from a
             millisecond of dynamic force. We build the sensors, the signal
             chain, and the calibration discipline that turn that inference
             into legally defensible data.
           </p>
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap gap-3 motion-fade-up motion-stagger-4">
             <Link
               to="/technology"
-              className="inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition hover:brightness-110"
+              className="group inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition-[transform,filter] duration-200 motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
             >
-              Inspect the sensor stack <span aria-hidden>→</span>
+              Inspect the sensor stack{" "}
+              <span
+                aria-hidden
+                className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+              >
+                →
+              </span>
             </Link>
             <Link
               to="/performance"
-              className="inline-flex items-center gap-2 border border-rule px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-foreground transition hover:border-hivis hover:text-hivis"
+              className="group inline-flex items-center gap-2 border border-rule px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-foreground transition-[color,border-color,transform] duration-200 motion-safe:hover:-translate-y-px hover:border-hivis hover:text-hivis"
             >
               Accuracy classes
             </Link>
           </div>
         </div>
-        <div className="md:col-span-4">
+        <FadeIn className="md:col-span-4" delay={200}>
           <div className="border border-rule bg-card p-6">
             <p className="label-eyebrow">Live spec sheet</p>
             <p className="font-display mt-2 text-2xl text-foreground">
@@ -68,7 +77,7 @@ function Hero() {
             </div>
             <div className="diag-stripes mt-6 h-2 w-full opacity-80" />
           </div>
-        </div>
+        </FadeIn>
       </div>
     </section>
   );
@@ -84,7 +93,7 @@ function TickerBar() {
   ];
   return (
     <div className="rule-top rule-bottom overflow-hidden bg-concrete/60">
-      <div className="flex animate-[scroll_45s_linear_infinite] gap-12 whitespace-nowrap px-6 py-3 font-mono-tight text-[11px] uppercase tracking-widest text-foreground/70">
+      <div className="flex gap-12 whitespace-nowrap px-6 py-3 font-mono-tight text-[11px] uppercase tracking-widest text-foreground/70 motion-safe:animate-[scroll_45s_linear_infinite] motion-reduce:animate-none motion-reduce:flex-wrap motion-reduce:whitespace-normal">
         {[...items, ...items].map((t, i) => (
           <span key={i} className="flex items-center gap-3">
             <span className="text-hivis">◆</span>
@@ -92,7 +101,6 @@ function TickerBar() {
           </span>
         ))}
       </div>
-      <style>{`@keyframes scroll { to { transform: translateX(-50%); } }`}</style>
     </div>
   );
 }
@@ -127,20 +135,19 @@ function Principles() {
         intro="Everything else — enclosures, backhaul, dashboards — is downstream of these."
       />
       <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {cards.map((c) => (
-          <article
-            key={c.n}
-            className="group relative flex flex-col border border-rule bg-card p-8 transition hover:border-hivis"
-          >
-            <span className="font-mono-tight text-xs text-hivis">{c.n}</span>
-            <h3 className="font-display mt-6 text-3xl leading-tight text-foreground">
-              {c.title}
-            </h3>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              {c.body}
-            </p>
-            <div className="mt-8 h-px w-12 bg-hivis transition-all group-hover:w-24" />
-          </article>
+        {cards.map((c, i) => (
+          <FadeIn key={c.n} delay={i * 80}>
+            <article className="group relative flex h-full flex-col border border-rule bg-card p-8 transition-[border-color] duration-200 hover:border-hivis">
+              <span className="font-mono-tight text-xs text-hivis">{c.n}</span>
+              <h3 className="font-display mt-6 text-3xl leading-tight text-foreground">
+                {c.title}
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                {c.body}
+              </p>
+              <div className="mt-8 h-px w-12 bg-hivis transition-[width] duration-300 motion-safe:group-hover:w-24" />
+            </article>
+          </FadeIn>
         ))}
       </div>
     </section>
@@ -279,9 +286,15 @@ function CTA() {
             </p>
             <Link
               to="/contact"
-              className="mt-6 inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition hover:brightness-110"
+              className="group mt-6 inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition-[transform,filter] duration-200 motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
             >
-              Request the brief <span aria-hidden>→</span>
+              Request the brief{" "}
+              <span
+                aria-hidden
+                className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
+              >
+                →
+              </span>
             </Link>
           </div>
         </div>
