@@ -1,46 +1,46 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
 import { PageEnter } from "@/components/motion";
 
 const NAV = [
-  { to: "/", label: "Overview" },
-  { to: "/technology", label: "Technology" },
-  { to: "/performance", label: "Performance" },
-  { to: "/deployment", label: "Deployment" },
-  { to: "/contact", label: "Contact" },
+  { href: "#live", label: "System" },
+  { href: "#technology", label: "Technology" },
+  { href: "#capabilities", label: "Capabilities" },
+  { href: "#enforcement", label: "Enforcement" },
+  { href: "#performance", label: "Performance" },
+  { href: "#deployment", label: "Deployment" },
+  { href: "#contact", label: "Contact" },
 ] as const;
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 rule-bottom bg-background/85 backdrop-blur">
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-6 py-4">
-        <Link to="/" className="flex items-baseline gap-3">
+        <a href="#top" className="flex items-baseline gap-3">
           <span className="font-mono-tight text-sm text-hivis">◤ AXLE</span>
           <span className="font-mono-tight text-sm text-foreground/70">//WIM</span>
-        </Link>
-        <nav className="hidden items-center gap-1 md:flex">
+        </a>
+        <nav className="hidden items-center gap-1 lg:flex">
           {NAV.map((n) => (
-            <Link
-              key={n.to}
-              to={n.to}
-              className="rounded-none px-3 py-2 font-mono-tight text-xs uppercase tracking-widest text-foreground/70 transition-[color,transform] duration-200 motion-safe:hover:-translate-y-px hover:text-foreground"
-              activeProps={{ className: "text-hivis" }}
-              activeOptions={{ exact: n.to === "/" }}
+            <a
+              key={n.href}
+              href={n.href}
+              className="rounded-none px-3 py-2 font-mono-tight text-xs uppercase tracking-widest text-foreground/70 transition-[color,transform] duration-200 motion-safe:hover:-translate-y-px hover:text-hivis"
             >
               {n.label}
-            </Link>
+            </a>
           ))}
         </nav>
-        <Link
-          to="/contact"
+        <a
+          href="#contact"
           className="group hidden items-center gap-2 border border-hivis px-4 py-2 font-mono-tight text-xs uppercase tracking-widest text-hivis transition-[background-color,color,transform] duration-200 motion-safe:hover:-translate-y-px hover:bg-hivis hover:text-hivis-foreground md:inline-flex"
         >
           Request Deployment Brief
           <span aria-hidden className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5">
             →
           </span>
-        </Link>
+        </a>
       </div>
       <div className="diag-stripes h-1 w-full opacity-80" />
     </header>
@@ -61,17 +61,18 @@ export function SiteFooter() {
         <FooterCol
           title="Product"
           items={[
-            ["/technology", "Sensor Stack"],
-            ["/performance", "Accuracy Classes"],
-            ["/deployment", "Site Requirements"],
+            ["#technology", "Sensor Stack"],
+            ["#performance", "Accuracy Classes"],
+            ["#enforcement", "Overweight Enforcement"],
+            ["#deployment", "Site Requirements"],
           ]}
         />
         <FooterCol
           title="Company"
           items={[
-            ["/contact", "Contact"],
-            ["/contact", "Procurement"],
-            ["/contact", "Press"],
+            ["#contact", "Contact"],
+            ["#capabilities", "Capabilities"],
+            ["#live", "Live System"],
           ]}
         />
       </div>
@@ -97,14 +98,14 @@ function FooterCol({
     <div>
       <p className="label-eyebrow">{title}</p>
       <ul className="mt-4 space-y-2">
-        {items.map(([to, label]) => (
+        {items.map(([href, label]) => (
           <li key={label}>
-            <Link
-              to={to}
+            <a
+              href={href}
               className="text-sm text-foreground/80 transition hover:text-hivis"
             >
               {label}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>

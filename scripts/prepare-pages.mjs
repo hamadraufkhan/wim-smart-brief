@@ -23,6 +23,14 @@ writeFileSync(join(publicDir, ".nojekyll"), "");
 
 const indexPath = join(publicDir, "index.html");
 
+// TanStack Start's SPA prerender emits the canonical shell as _shell.html.
+// Prefer it (correct modulepreloads + full <head>) over a hand-built fallback.
+const shellPath = join(publicDir, "_shell.html");
+if (!existsSync(indexPath) && existsSync(shellPath)) {
+  copyFileSync(shellPath, indexPath);
+  console.log("Using _shell.html as index.html for GitHub Pages.");
+}
+
 if (!existsSync(indexPath)) {
   const assetsDir = join(publicDir, "assets");
   if (!existsSync(assetsDir)) {
@@ -56,7 +64,7 @@ if (!existsSync(indexPath)) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     ${stylesheet ? `<link rel="stylesheet" href="${base}/assets/${stylesheet}" />` : ""}
   </head>

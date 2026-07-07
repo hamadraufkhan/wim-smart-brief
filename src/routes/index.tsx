@@ -1,6 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { FadeIn } from "@/components/motion";
 import { WimLiveScene, SystemGallery, FeatureGrid } from "@/components/wim-scene";
+import { EnforcementSection } from "@/components/enforcement";
+import {
+  TechnologySection,
+  PerformanceSection,
+  DeploymentSection,
+  ContactSection,
+} from "@/components/deck-sections";
 import { PageShell, SectionHeader, DataRow } from "@/components/site-chrome";
 
 export const Route = createFileRoute("/")({
@@ -12,19 +19,23 @@ function Index() {
     <PageShell>
       <Hero />
       <TickerBar />
-      <LiveSystem />
       <Principles />
+      <LiveSystem />
+      <TechnologySection />
       <Pipeline />
       <Features />
+      <Enforcement />
+      <PerformanceSection />
       <Applications />
-      <CTA />
+      <DeploymentSection />
+      <ContactSection />
     </PageShell>
   );
 }
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section id="top" className="deck-anchor relative overflow-hidden">
       <div className="grid-lines absolute inset-0 opacity-40" aria-hidden />
       <div className="scanlines absolute inset-0 opacity-30" aria-hidden />
       <div className="relative mx-auto grid max-w-[1400px] gap-12 px-6 pb-24 pt-20 md:grid-cols-12 md:pt-28">
@@ -44,24 +55,24 @@ function Hero() {
             into legally defensible data.
           </p>
           <div className="mt-10 flex flex-wrap gap-3 motion-fade-up motion-stagger-4">
-            <Link
-              to="/technology"
+            <a
+              href="#enforcement"
               className="group inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition-[transform,filter] duration-200 motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
             >
-              Inspect the sensor stack{" "}
+              See enforcement in action{" "}
               <span
                 aria-hidden
                 className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
               >
                 →
               </span>
-            </Link>
-            <Link
-              to="/performance"
+            </a>
+            <a
+              href="#technology"
               className="group inline-flex items-center gap-2 border border-rule px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-foreground transition-[color,border-color,transform] duration-200 motion-safe:hover:-translate-y-px hover:border-hivis hover:text-hivis"
             >
-              Accuracy classes
-            </Link>
+              Inspect the sensor stack
+            </a>
           </div>
         </div>
         <FadeIn className="md:col-span-4" delay={200}>
@@ -110,7 +121,7 @@ function TickerBar() {
 
 function LiveSystem() {
   return (
-    <section className="mx-auto max-w-[1400px] px-6 py-24">
+    <section id="live" className="deck-anchor mx-auto max-w-[1400px] px-6 py-24">
       <SectionHeader
         eyebrow="§ Live · Sense → transmit"
         title={
@@ -130,7 +141,7 @@ function LiveSystem() {
 
 function Features() {
   return (
-    <section className="rule-top rule-bottom bg-concrete/40">
+    <section id="capabilities" className="deck-anchor rule-top rule-bottom bg-concrete/40">
       <div className="mx-auto max-w-[1400px] px-6 py-24">
         <SectionHeader
           eyebrow="§ Capabilities"
@@ -143,6 +154,23 @@ function Features() {
         />
         <FeatureGrid />
       </div>
+    </section>
+  );
+}
+
+function Enforcement() {
+  return (
+    <section id="enforcement" className="deck-anchor mx-auto max-w-[1400px] px-6 py-24">
+      <SectionHeader
+        eyebrow="§ Enforcement · Overweight → e-challan"
+        title={
+          <>
+            An overweight axle becomes a <em className="italic hivis-underline">signed challan</em> before the truck clears the bridge.
+          </>
+        }
+        intro="When measured load exceeds the permitted limit, the system captures the plate, builds an evidence package, auto-generates an e-challan, and dispatches it to the owner and enforcement — end to end, in under a second."
+      />
+      <EnforcementSection />
     </section>
   );
 }
@@ -307,40 +335,3 @@ function Applications() {
   );
 }
 
-function CTA() {
-  return (
-    <section className="mx-auto max-w-[1400px] px-6 pb-24">
-      <div className="relative overflow-hidden border border-hivis bg-card p-10 md:p-16">
-        <div className="diag-stripes absolute inset-x-0 top-0 h-2" />
-        <div className="grid gap-10 md:grid-cols-2 md:items-end">
-          <div>
-            <p className="label-eyebrow">Next step</p>
-            <h2 className="font-display mt-4 text-4xl leading-tight text-foreground md:text-6xl">
-              Bring a <span className="hivis-underline">site survey</span> to your next
-              corridor review.
-            </h2>
-          </div>
-          <div className="md:justify-self-end">
-            <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
-              We produce a deployment brief in 10 working days: geometry, pavement
-              suitability, sensor selection, expected accuracy class, and 10-year
-              total cost of ownership.
-            </p>
-            <Link
-              to="/contact"
-              className="group mt-6 inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition-[transform,filter] duration-200 motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98]"
-            >
-              Request the brief{" "}
-              <span
-                aria-hidden
-                className="transition-transform duration-200 motion-safe:group-hover:translate-x-0.5"
-              >
-                →
-              </span>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}

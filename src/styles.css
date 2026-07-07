@@ -58,8 +58,8 @@
   --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-rule: var(--rule);
-  --font-display: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -158,8 +158,15 @@
 
   h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  /* Emphasised words in headings use real Inter italic for editorial contrast */
+  h1 em, h2 em, h3 em, .font-display em {
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-weight: 500;
   }
 }
 
@@ -167,8 +174,8 @@
 
 @utility font-display {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 
 @utility font-mono-tight {
@@ -367,6 +374,90 @@
 @media (prefers-reduced-motion: reduce) {
   .wim-anim [style*="animation"],
   .wim-anim .wim-flow {
+    animation: none !important;
+  }
+}
+
+/* -------- Single-page deck -------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@utility deck-anchor {
+  scroll-margin-top: 5.5rem;
+}
+
+/* -------- Enforcement / e-challan -------- */
+
+@keyframes stamp-in {
+  0% {
+    transform: translate(-50%, -50%) rotate(-13deg) scale(2.6);
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  70% {
+    transform: translate(-50%, -50%) rotate(-13deg) scale(0.94);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-13deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes enf-sweep {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes enf-row-in {
+  from {
+    background-color: color-mix(in oklab, var(--color-hivis) 26%, transparent);
+    transform: translate3d(0, -4px, 0);
+  }
+  to {
+    background-color: transparent;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes enf-bar-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes enf-over-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enf-anim [style*="animation"] {
     animation: none !important;
   }
 }
