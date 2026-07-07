@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FadeIn } from "@/components/motion";
 import { WimLiveScene, SystemGallery, FeatureGrid } from "@/components/wim-scene";
 import { EnforcementSection } from "@/components/enforcement";
+import { ImpactSection } from "@/components/impact";
 import {
   TechnologySection,
   PerformanceSection,
   DeploymentSection,
-  ContactSection,
 } from "@/components/deck-sections";
 import { PageShell, SectionHeader, DataRow } from "@/components/site-chrome";
 
@@ -27,8 +27,8 @@ function Index() {
       <Enforcement />
       <PerformanceSection />
       <Applications />
+      <ImpactSection />
       <DeploymentSection />
-      <ContactSection />
     </PageShell>
   );
 }
@@ -40,10 +40,7 @@ function Hero() {
       <div className="scanlines absolute inset-0 opacity-30" aria-hidden />
       <div className="relative mx-auto grid max-w-[1400px] gap-12 px-6 pb-24 pt-20 md:grid-cols-12 md:pt-28">
         <div className="md:col-span-8">
-          <p className="label-eyebrow motion-fade-up motion-stagger-1">
-            Bulletin · Vol. 12 / Highway Instrumentation
-          </p>
-          <h1 className="font-display mt-6 text-5xl leading-[0.98] tracking-tight text-foreground motion-fade-up motion-stagger-2 md:text-[7rem]">
+          <h1 className="font-display text-5xl leading-[0.98] tracking-tight text-foreground motion-fade-up motion-stagger-2 md:text-[7rem]">
             Weighing <span className="italic hivis-underline">every axle</span>
             <br />
             at 120 km/h.

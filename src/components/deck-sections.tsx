@@ -1,4 +1,3 @@
-import { useState, type FormEvent } from "react";
 import { SectionHeader, DataRow } from "@/components/site-chrome";
 
 /* ================= Technology ================= */
@@ -166,26 +165,13 @@ const SITE_REQS = [
   { t: "Privacy", d: "ANPR retention windows configurable. Purpose limitation and pseudonymization by default. GDPR-aware pipeline." },
 ];
 
-const TCO = [
-  ["Sensor hardware & install", 34],
-  ["Civil works & pavement", 22],
-  ["Roadside cabinet & comms", 12],
-  ["Calibration & QA (10 yr)", 14],
-  ["Data platform & operations", 12],
-  ["Contingency", 6],
-] as const;
-
 export function DeploymentSection() {
   return (
     <section id="deployment" className="deck-anchor rule-top rule-bottom bg-concrete/40">
       <div className="mx-auto max-w-[1400px] px-6 py-24">
         <SectionHeader
           eyebrow="§ Deployment · Site requirements"
-          title={
-            <>
-              A cheap sensor on <em className="italic hivis-underline">bad pavement</em> is the most expensive option.
-            </>
-          }
+          title="What a good HS-WIM site looks like."
           intro="Site selection accounts for roughly 70% of long-run system performance. Before we choose a sensor, we characterize the road."
         />
         <div className="mt-14 grid gap-px overflow-hidden border border-rule bg-rule md:grid-cols-3">
@@ -196,153 +182,8 @@ export function DeploymentSection() {
             </div>
           ))}
         </div>
-
-        <div className="mt-16 grid gap-16 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <SectionHeader
-              eyebrow="§ Total cost of ownership"
-              title={
-                <>
-                  Budget the <em className="italic hivis-underline">decade</em>, not the capex.
-                </>
-              }
-              intro="Sensors are ~30–40% of TCO. Pavement rehabilitation, calibration campaigns, and data operations dominate the rest."
-            />
-          </div>
-          <div className="md:col-span-7">
-            <div className="border border-rule bg-card p-8">
-              {TCO.map(([label, pct]) => (
-                <div key={label} className="mb-5">
-                  <div className="flex items-baseline justify-between font-mono-tight text-xs">
-                    <span className="uppercase tracking-widest text-muted-foreground">{label}</span>
-                    <span className="text-foreground">{pct}%</span>
-                  </div>
-                  <div className="mt-2 h-2 w-full bg-concrete">
-                    <div className="h-full bg-hivis" style={{ width: `${pct}%` }} />
-                  </div>
-                </div>
-              ))}
-              <p className="mt-6 font-mono-tight text-[10px] uppercase tracking-widest text-muted-foreground">
-                Indicative 10-year TCO for a 4-lane enforcement-pre-selection site.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
 }
 
-/* ================= Contact ================= */
-
-export function ContactSection() {
-  const [sent, setSent] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (submitting) return;
-    setSubmitting(true);
-    window.setTimeout(() => {
-      setSubmitting(false);
-      setSent(true);
-    }, 800);
-  };
-
-  return (
-    <section id="contact" className="deck-anchor rule-top bg-concrete/40">
-      <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-24 md:grid-cols-12">
-        <div className="md:col-span-5">
-          <SectionHeader
-            eyebrow="§ Contact"
-            title={
-              <>
-                Tell us about the <em className="italic hivis-underline">corridor</em>.
-              </>
-            }
-            intro="Route, average daily heavy-vehicle count, current enforcement setup, and what you want to know. We'll come back with a 10-day plan."
-          />
-          <p className="mt-10 label-eyebrow">Field engineering</p>
-          <p className="font-display mt-2 text-2xl text-foreground">field@axle-wim.example</p>
-          <p className="mt-6 label-eyebrow">Procurement</p>
-          <p className="font-display mt-2 text-2xl text-foreground">tenders@axle-wim.example</p>
-        </div>
-
-        <form className="md:col-span-7" onSubmit={handleSubmit}>
-          <div className="border border-rule bg-background p-8">
-            {sent ? (
-              <div className="motion-fade-up py-16 text-center">
-                <p className="label-eyebrow">Received</p>
-                <p className="font-display mt-4 text-4xl text-foreground">
-                  Thank you.{" "}
-                  <span className="hivis-underline">We'll reply within 2 working days.</span>
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="grid gap-6 md:grid-cols-2">
-                  <ContactField label="Name" name="name" />
-                  <ContactField label="Organisation" name="org" />
-                  <ContactField label="Email" name="email" type="email" />
-                  <ContactField label="Country / region" name="region" />
-                </div>
-                <div className="mt-6">
-                  <label className="label-eyebrow block">Corridor / project brief</label>
-                  <textarea
-                    required
-                    rows={5}
-                    className="mt-2 w-full border border-rule bg-background px-4 py-3 font-mono-tight text-sm text-foreground placeholder:text-muted-foreground focus:border-hivis focus:outline-none"
-                    placeholder="e.g. 4-lane motorway, ~14,000 HGV/day, need overweight pre-selection + e-ticket into an existing back office…"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="mt-8 inline-flex items-center gap-2 bg-hivis px-6 py-3 font-mono-tight text-xs uppercase tracking-widest text-hivis-foreground transition-[transform,filter,opacity] duration-200 motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] disabled:pointer-events-none disabled:opacity-60"
-                >
-                  {submitting ? (
-                    <>
-                      Sending
-                      <span className="motion-safe:animate-pulse" aria-hidden>
-                        …
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      Send brief <span aria-hidden>→</span>
-                    </>
-                  )}
-                </button>
-              </>
-            )}
-          </div>
-        </form>
-      </div>
-    </section>
-  );
-}
-
-function ContactField({
-  label,
-  name,
-  type = "text",
-}: {
-  label: string;
-  name: string;
-  type?: string;
-}) {
-  return (
-    <div>
-      <label className="label-eyebrow block" htmlFor={name}>
-        {label}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        required
-        className="mt-2 w-full border border-rule bg-background px-4 py-3 font-mono-tight text-sm text-foreground focus:border-hivis focus:outline-none"
-      />
-    </div>
-  );
-}

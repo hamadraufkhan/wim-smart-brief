@@ -461,3 +461,11 @@
     animation: none !important;
   }
 }
+
+/* -------- Impact charts -------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .impact-anim [style*="transition"] {
+    transition: none !important;
+  }
+}

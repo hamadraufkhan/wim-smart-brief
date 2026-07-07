@@ -9,8 +9,8 @@ const NAV = [
   { href: "#capabilities", label: "Capabilities" },
   { href: "#enforcement", label: "Enforcement" },
   { href: "#performance", label: "Performance" },
+  { href: "#impact", label: "Impact" },
   { href: "#deployment", label: "Deployment" },
-  { href: "#contact", label: "Contact" },
 ] as const;
 
 export function SiteHeader() {
@@ -33,7 +33,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <a
-          href="#contact"
+          href="#deployment"
           className="group hidden items-center gap-2 border border-hivis px-4 py-2 font-mono-tight text-xs uppercase tracking-widest text-hivis transition-[background-color,color,transform] duration-200 motion-safe:hover:-translate-y-px hover:bg-hivis hover:text-hivis-foreground md:inline-flex"
         >
           Request Deployment Brief
@@ -47,72 +47,6 @@ export function SiteHeader() {
   );
 }
 
-export function SiteFooter() {
-  return (
-    <footer className="rule-top mt-24 bg-background">
-      <div className="mx-auto grid max-w-[1400px] gap-10 px-6 py-14 md:grid-cols-4">
-        <div className="md:col-span-2">
-          <p className="label-eyebrow">Axle // WIM Systems</p>
-          <p className="font-display mt-3 text-3xl leading-tight text-foreground">
-            Weighing freight at <span className="hivis-underline">highway speed</span>,
-            without stopping traffic.
-          </p>
-        </div>
-        <FooterCol
-          title="Product"
-          items={[
-            ["#technology", "Sensor Stack"],
-            ["#performance", "Accuracy Classes"],
-            ["#enforcement", "Overweight Enforcement"],
-            ["#deployment", "Site Requirements"],
-          ]}
-        />
-        <FooterCol
-          title="Company"
-          items={[
-            ["#contact", "Contact"],
-            ["#capabilities", "Capabilities"],
-            ["#live", "Live System"],
-          ]}
-        />
-      </div>
-      <div className="rule-top">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-6 py-5 font-mono-tight text-[11px] uppercase tracking-widest text-muted-foreground">
-          <span>© {new Date().getFullYear()} Axle Instrumentation Ltd.</span>
-          <span>COST-323 · OIML R134 · ISO/IEC 17025 aware</span>
-          <span>Rev. 2026.07</span>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function FooterCol({
-  title,
-  items,
-}: {
-  title: string;
-  items: ReadonlyArray<readonly [string, string]>;
-}) {
-  return (
-    <div>
-      <p className="label-eyebrow">{title}</p>
-      <ul className="mt-4 space-y-2">
-        {items.map(([href, label]) => (
-          <li key={label}>
-            <a
-              href={href}
-              className="text-sm text-foreground/80 transition hover:text-hivis"
-            >
-              {label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 export function PageShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -122,7 +56,6 @@ export function PageShell({ children }: { children: ReactNode }) {
       <main>
         <PageEnter routeKey={pathname}>{children}</PageEnter>
       </main>
-      <SiteFooter />
     </div>
   );
 }
