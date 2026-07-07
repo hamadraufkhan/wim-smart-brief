@@ -78,9 +78,9 @@ export function CountUp({
 
 const STATS = [
   { label: "Overweight flags · today", to: 1284, decimals: 0 },
-  { label: "E-challans issued · MTD", to: 8432, decimals: 0 },
+  { label: "E-tickets issued · MTD", to: 8432, decimals: 0 },
   { label: "Fine recovery rate", to: 78.4, decimals: 1, suffix: "%" },
-  { label: "Detect → challan", to: 812, decimals: 0, suffix: " ms" },
+  { label: "Detect → ticket", to: 812, decimals: 0, suffix: " ms" },
 ];
 
 export function StatBand() {
@@ -161,7 +161,7 @@ export function EnforcementSection() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-5">
         <AxleProfile v={v} />
-        <ChallanTicket v={v} />
+        <ViolationTicket v={v} />
       </div>
 
       <LogStream feed={feed} currentId={v.id} />
@@ -175,7 +175,7 @@ const STEPS = [
   { icon: Scale, label: "Detect", sub: "WIM · overweight" },
   { icon: Camera, label: "Capture", sub: "ANPR · plate" },
   { icon: ShieldCheck, label: "Verify", sub: "Registry match" },
-  { icon: FileText, label: "Challan", sub: "Auto-generate" },
+  { icon: FileText, label: "Ticket", sub: "Auto-generate" },
   { icon: Send, label: "Dispatch", sub: "Owner + LEA" },
 ];
 
@@ -276,9 +276,9 @@ function Metric({ k, v, danger }: { k: string; v: string; danger?: boolean }) {
   );
 }
 
-/* ---------------- E-challan ticket ---------------- */
+/* ---------------- E-ticket ---------------- */
 
-function ChallanTicket({ v }: { v: Violation }) {
+function ViolationTicket({ v }: { v: Violation }) {
   return (
     <div className="lg:col-span-3">
       <div key={v.id} className="motion-fade-up relative overflow-hidden border border-hivis bg-background">
@@ -287,7 +287,7 @@ function ChallanTicket({ v }: { v: Violation }) {
           <div className="flex items-start justify-between">
             <div>
               <p className="font-mono-tight text-[10px] uppercase tracking-widest text-muted-foreground">
-                Electronic Challan · Auto-generated
+                Electronic Ticket · Auto-generated
               </p>
               <p className="font-display mt-1 text-2xl text-foreground">{v.id}</p>
             </div>
@@ -347,8 +347,8 @@ function TicketRow({ k, v, danger }: { k: string; v: string; danger?: boolean })
 
 function statusFor(v: Violation): { label: string; cls: string } {
   const p = overPct(v);
-  if (p >= 15) return { label: "CHALLAN", cls: "border-red-400/70 text-red-300" };
-  if (p >= 5) return { label: "CHALLAN", cls: "border-hivis/70 text-hivis" };
+  if (p >= 15) return { label: "TICKET", cls: "border-red-400/70 text-red-300" };
+  if (p >= 5) return { label: "TICKET", cls: "border-hivis/70 text-hivis" };
   return { label: "WARN", cls: "border-foreground/40 text-foreground/70" };
 }
 

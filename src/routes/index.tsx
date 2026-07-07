@@ -162,13 +162,13 @@ function Enforcement() {
   return (
     <section id="enforcement" className="deck-anchor mx-auto max-w-[1400px] px-6 py-24">
       <SectionHeader
-        eyebrow="§ Enforcement · Overweight → e-challan"
+        eyebrow="§ Enforcement · Overweight → e-ticket"
         title={
           <>
-            An overweight axle becomes a <em className="italic hivis-underline">signed challan</em> before the truck clears the bridge.
+            An overweight axle becomes a <em className="italic hivis-underline">signed ticket</em> before the truck clears the bridge.
           </>
         }
-        intro="When measured load exceeds the permitted limit, the system captures the plate, builds an evidence package, auto-generates an e-challan, and dispatches it to the owner and enforcement — end to end, in under a second."
+        intro="When measured load exceeds the permitted limit, the system captures the plate, builds an evidence package, auto-generates an e-ticket, and dispatches it to the owner and enforcement — end to end, in under a second."
       />
       <EnforcementSection />
     </section>

@@ -292,7 +292,7 @@ export function ContactSection() {
                     required
                     rows={5}
                     className="mt-2 w-full border border-rule bg-background px-4 py-3 font-mono-tight text-sm text-foreground placeholder:text-muted-foreground focus:border-hivis focus:outline-none"
-                    placeholder="e.g. 4-lane motorway, ~14,000 HGV/day, need overweight pre-selection + e-challan into an existing back office…"
+                    placeholder="e.g. 4-lane motorway, ~14,000 HGV/day, need overweight pre-selection + e-ticket into an existing back office…"
                   />
                 </div>
                 <button
